@@ -1,0 +1,43 @@
+
+Introduction
+============
+
+This project was created for the CleanWeb Hackathon 2013 in Beijing.
+
+The goal is to analyze the taxi dataset for find aread with high potential
+for pedestrial development.
+
+This program use Spark, a framework distributed computing written in Scala.
+
+Processing
+==========
+
+The program goes as as follow:
+	a) read the input file
+	b) parse the text format into binary format (Sample objects)
+	c) filter the events "get in" and "get out" a taxi 
+	d) join the consecutive events (get in and get out) into "trip" 
+	e) and measure the distance of the trip
+	e) filter the trip where of a distance less than 3km.
+	f) group the departure points in 10 clusters
+	g) for each cluster, print 30 departure (for visualization)
+
+Input will be read from the file sample.csv
+
+Output will be saved into:
+	* ./depart.txt/part-XXXX : for the position of the clusters
+	* ./groups.txt/part-XXXX : for the points of those clusters
+
+
+Build
+=====
+
+Install sbt (Simple Build Tool) and execute:
+
+	$ sbt package 
+	
+Run
+===
+
+	$ sbt run
+
