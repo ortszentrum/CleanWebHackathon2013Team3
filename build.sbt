@@ -1,7 +1,9 @@
 
-import AssemblyKeys._
+import Keys._
 
-assemblySettings
+import sbtassembly.Plugin._
+
+import AssemblyKeys._
 
 name := "CleanWebHackathon2013"
 
@@ -13,7 +15,11 @@ resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/release
 
 resolvers += "Spray Repository" at "http://repo.spray.cc/"
 
-libraryDependencies += "org.spark-project" %% "spark-core" % "0.7.2"
+// libraryDependencies += "org.spark-project" %% "spark-core" % "0.7.2"
 
 seq(com.github.retronym.SbtOneJar.oneJarSettings: _*)
+
+seq(assemblySettings: _*)
+
+test in assembly := {}
 
