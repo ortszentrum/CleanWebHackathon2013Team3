@@ -21,6 +21,12 @@ object Hackathon {
 
   def main(args: Array[String]) {
 
+    val (k, topN) = args.toList match {
+	case Nil => (10, 30)	
+	case k :: Nil => (k.toInt, 30)
+	case k :: n :: Nil => (k.toInt, n.toInt)
+    }
+
     val context = "local[4]"
     val sc = new SparkContext(context, "hackathon", "/var/opt/spark-0.7.2")
 
@@ -49,7 +55,7 @@ object Hackathon {
 
     val shift: RDD[Sample] = sc.parallelize(trip.collect.drop(1))
 
-    val groups = kmeans.cluster(trip.map(_.pos))
+    val groups = kmeans.cluster(k, topN)(trip.map(_.pos))
 
     groups.map(list => list.mkString("")).saveAsTextFile("groups.txt")
   }

@@ -12,13 +12,6 @@ import scala.collection.mutable.HashSet
  * K-means clustering.
  */
 object kmeans {
-  val R = 1000     // Scaling factor
-  val rand = new Random(42)
-    
-  def parseVector(line: String): Vector = {
-      return new Vector(line.split(' ').map(_.toDouble))
-  }
-  
   def closestPoint(p: Vector, centers: Array[Vector]): Int = {
     var index = 0
     var bestIndex = 0
@@ -35,9 +28,9 @@ object kmeans {
     return bestIndex
   }
 
-  def cluster(data: RDD[Vector]): RDD[Seq[Vector]] = {
+  def cluster(data: RDD[Vector]): RDD[Seq[Vector]] = cluster(10, 30)(data)
+  def cluster(K: Int, topN: Int)(data: RDD[Vector]) : RDD[Seq[Vector]] = {
 
-    val K = 10
     val convergeDist = 0.001
   
     var kPoints: Array[Vector] = data.takeSample(false, K, 42).toArray
@@ -66,7 +59,7 @@ object kmeans {
     kPoints.foreach(println)
 
     data.groupBy (p => closestPoint(p, kPoints)).map {
-      case (point, list) => list.take(30)
+      case (point, list) => list.take(topN)
     }
   }
 }
