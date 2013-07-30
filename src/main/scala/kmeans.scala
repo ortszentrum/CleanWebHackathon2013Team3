@@ -28,8 +28,8 @@ object kmeans {
     return bestIndex
   }
 
-  def cluster(data: RDD[Vector]): RDD[Seq[Vector]] = cluster(10, 30)(data)
-  def cluster(K: Int, topN: Int)(data: RDD[Vector]) : RDD[Seq[Vector]] = {
+  def cluster(data: RDD[Vector]): Array[Vector] = cluster(10, 30)(data)
+  def cluster(K: Int, topN: Int)(data: RDD[Vector]) : Array[Vector] = {
 
     val convergeDist = 0.001
   
@@ -57,9 +57,6 @@ object kmeans {
 
     println("Final centers:")
     kPoints.foreach(println)
-
-    data.groupBy (p => closestPoint(p, kPoints)).map {
-      case (point, list) => list.take(topN)
-    }
+    kPoints
   }
 }
