@@ -37,8 +37,8 @@ The program goes as as follow:
 Input will be read from the file sample.csv
 
 Output will be saved into:
- * ./depart.txt/part-XXXX : for the positions of the clusters
- * ./groups.txt/part-XXXX : for some departure/arrival points of the clusters
+ * ./rides.txt/part-XXXX : all the departure/arrival
+ * ./results.txt/part-XXXX : the departure/arrival closest to the centers
 
 
 Build
@@ -51,6 +51,7 @@ Install sbt (Simple Build Tool) and execute:
 Run
 ===
 
-	$ java -jar 
+Verify you have the files sample.csv in the current directory and run:
 
+	$ java -jar ./target/scala-2.9.3/CleanWebHackathon2013-assembly-1.0.jar 10 300
 
